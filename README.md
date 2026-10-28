@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME VISHVANANDH N</H3>
-<H3>ENTER YOUR REGISTER NO. 212224240186</H3>
+<H3>ENTER YOUR NAME : VISHVANANDH N</H3>
+<H3>ENTER YOUR REGISTER NO. : 212224240186</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE 27-10-2026</H3>
+<H3>DATE</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,83 +37,71 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-```
-import pandas as pd
+```python
+# Importing Libraries
+import io
+from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+df=pd.read_csv("Churn_Modelling.csv",index_col="RowNumber")         # Read the dataset from drive
+df.head()
+```
 
-# Read dataset
-data = pd.read_csv("carsemission.csv")
-print(data.head())
+```python
+ # Finding Missing Values
+df.isnull().sum()
+```
 
-# Check missing values
-print(data.isnull().sum())
+```python
+ # Check For Duplicates
+print(df.duplicated().sum())
+```
 
-# Handle missing values
-data.fillna(data.mean(numeric_only=True), inplace=True)
+```python
+# Remove Unnecessary Columns
+df=df.drop(['Surname', 'Geography','Gender'], axis=1) 
+# Normalize the dataset
+scaler=StandardScaler()                                
+df=pd.DataFrame(scaler.fit_transform(df))
+df.head()
+```
 
-# Check duplicates
-print(data.duplicated())
+```python
+# Split the dataset into input and output
+X,Y=df.iloc[:,:-1].values ,df.iloc[:,-1].values  
 
-# Describe data
-print(data.describe())
+ # Splitting the data for training & Testing
+print('Input:\n',X,'\nOutput:\n',Y) 
+Xtrain,Xtest,Ytrain,Ytest = train_test_split(X, Y, test_size=0.2)  
 
-# Normalize numerical data
-scaler = MinMaxScaler()
-df1 = pd.DataFrame(scaler.fit_transform(data[['Volume', 'Weight', 'CO2']]),
-                   columns=['Volume', 'Weight', 'CO2'])
-print(df1)
+# X Train and Test
+print("Xtrain:\n" ,Xtrain, "\nXtest:\n", Xtest)    
 
-# Split input and output
-X = pd.get_dummies(data[['Car', 'Model', 'Volume', 'Weight']])
-y = data['CO2']
-
-# Training and testing
-print("Training data:")
-print(X_train.head())
-print(y_train.head())
-
-print("Testing data:")
-print(X_test.head())
-print(y_test.head())
-
-print("Length of X_test:", len(X_test))
-
+# Y Train and Test
+print("\nYtrain:\n" ,Ytrain, "\nYtest:\n", Ytest)                   
 ```
 
 
 ## OUTPUT:
-<img width="850" height="450" alt="image" src="https://github.com/user-attachments/assets/0464e14b-1c2d-4d27-baef-070f8e9f28be" />
-<img width="795" height="447" alt="image" src="https://github.com/user-attachments/assets/15b69a95-d261-4fb0-a68b-528d012133d2" />
-<img width="817" height="442" alt="image" src="https://github.com/user-attachments/assets/a7071bda-3ab1-44d6-b60e-ccdcf021eb9e" />
-<img width="716" height="445" alt="image" src="https://github.com/user-attachments/assets/3762f0f8-e2a7-42f8-8a9e-00e499be5f8e" />
-<img width="660" height="447" alt="image" src="https://github.com/user-attachments/assets/fec0032e-4f8f-4fa1-89f6-e57225f52f83" />
-<img width="841" height="452" alt="image" src="https://github.com/user-attachments/assets/b980c422-ea3a-4e2f-a505-868e96b04b3a" />
-<img width="832" height="457" alt="image" src="https://github.com/user-attachments/assets/7e9fb525-658e-426e-a6fb-d48463a6fb98" />
-<img width="846" height="455" alt="image" src="https://github.com/user-attachments/assets/9ad5b964-763e-4852-8bb6-d72a4a6e4a88" />
-<img width="832" height="437" alt="image" src="https://github.com/user-attachments/assets/8662582f-aa53-4b26-b668-7b2e0d7c3172" />
-<img width="822" height="460" alt="image" src="https://github.com/user-attachments/assets/400aab0f-1470-4a28-a08c-16dd5f109edf" />
-<img width="797" height="447" alt="image" src="https://github.com/user-attachments/assets/b9854c2c-6ec1-45e7-a3f1-3957dd1e9cfd" />
+### DATASET:
+<img width="1237" height="268" alt="image" src="https://github.com/user-attachments/assets/3fbe55e6-6f00-42d3-ad53-ad6cd69c122c" />
+
+### NULL VALUES:
+<img width="241" height="504" alt="image" src="https://github.com/user-attachments/assets/26cd09ee-eab1-4185-af2c-fd5a4442a983" />
 
 
 
+### NORMALIZED DATA:
+<img width="878" height="202" alt="image" src="https://github.com/user-attachments/assets/b22ae1fa-c8d7-4659-bc37-5e8597ce73ca" />
 
 
+### DATA SPLITTING and TRAIN AND TEST DATA:
+<img width="628" height="816" alt="image" src="https://github.com/user-attachments/assets/f70e3de0-0c84-4fd7-9096-627c42efd2e5" />
 
-
-
-
-
-
-
-
-
-
+<img width="592" height="136" alt="image" src="https://github.com/user-attachments/assets/1fd95e6b-eeca-4170-a331-3122e7d39526" />
 
 
 ## RESULT:
 Thus, Implementation of Data Preprocessing is done in python  using a data set downloaded from Kaggle.
-
-
 
 
